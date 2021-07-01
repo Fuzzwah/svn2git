@@ -182,8 +182,8 @@ module Svn2Git
       if rootistrunk
         # Non-standard repository layout.  The repository root is effectively 'trunk.'
         cmd = "git svn init --prefix=svn/ "
-        cmd += "--username='#{username}' " unless username.nil?
-        cmd += "--password='#{password}' " unless password.nil?
+        cmd += "--username=#{username} " unless username.nil?
+        cmd += "--password=#{password} " unless password.nil?
         cmd += "--no-metadata " unless metadata
         if nominimizeurl
           cmd += "--no-minimize-url "
@@ -195,13 +195,13 @@ module Svn2Git
         cmd = "git svn init --prefix=svn/ "
 
         # Add each component to the command that was passed as an argument.
-        cmd += "--username='#{username}' " unless username.nil?
-        cmd += "--password='#{password}' " unless password.nil?
+        cmd += "--username=#{username} " unless username.nil?
+        cmd += "--password=#{password} " unless password.nil?
         cmd += "--no-metadata " unless metadata
         if nominimizeurl
           cmd += "--no-minimize-url "
         end
-        cmd += "--trunk='#{trunk}' " unless trunk.nil?
+        cmd += "--trunk=#{trunk} " unless trunk.nil?
         unless tags.nil?
           # Fill default tags here so that they can be filtered later
           tags = ['tags'] if tags.empty?
@@ -215,7 +215,7 @@ module Svn2Git
           branches = ['branches'] if branches.empty?
           # Process default or user-supplied branches
           branches.each do |branch|
-            cmd += "--branches='#{branch}' "
+            cmd += "--branches=#{branch} "
           end
         end
 
@@ -242,7 +242,7 @@ module Svn2Git
           branches.each{|branch| regex << "#{branch}[/][^/]+[/]"} unless branches.nil? or branches.empty?
         end
         regex = '^(?:' + regex.join('|') + ')(?:' + exclude.join('|') + ')'
-        cmd += "--ignore-paths='#{regex}' "
+        cmd += "--ignore-paths=#{regex} "
       end
       run_command(cmd, true, true)
 
